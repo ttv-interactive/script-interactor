@@ -48,6 +48,7 @@ export interface IScript {
     // Points cost
     cost?               : number,
     args?               : boolean, 
+    argsError?          : string,
     cooldown?           : number,
     followerOnly?       : boolean,
     subscriberOnly?     : boolean,

@@ -7,13 +7,12 @@ import DBConnection from '../helpers/db-connection'
 
 export default class Bot {
     
-    private client : tmi.Client
-    private isRunning : boolean = true
+    private client      : tmi.Client
+    private isRunning   : boolean = true
 
     private viewers : string[] = []
 
     public constructor(settings : ISettings) {
-
         // Format the settings so the tmi.client can read it
         this.client = tmi.client({
             identity: {
@@ -51,7 +50,9 @@ export default class Bot {
         // If a user joins the channel - we add them to the list of viewers
         // If they leave - we remove them from the list
         this.client.on('join', (channel, username, self) => {
-            if (self) { return }
+            // If its the bot or the streamer itself - return
+            // '#' is included in the channel name - example: #BigBootyStreamer68
+            if (self || channel.replace('#', '') == username) { return }
 
             if (!this.viewers.includes(username)) {
                 this.viewers.push(username);
@@ -61,7 +62,9 @@ export default class Bot {
         });
         
         this.client.on('part', (channel, username, self) => {
-            if (self) { return }
+            // If its the bot or the streamer itself - return
+            // '#' is included in the channel name - example: #BigBootyStreamer70
+            if (self || channel.replace('#', '') == username) { return }
 
             const index = this.viewers.indexOf(username);
             if (index > -1){
@@ -113,7 +116,7 @@ export default class Bot {
 
         // Check if the command is one of the integrated commands
         for (const _command of commands) {
-            if (_command.name == command.name) {
+            if (_command.name.toLowerCase() == command.name.toLowerCase()) {
                 _command.action(context, command.args)
                 Logger.log(`Executing ${_command.name} command for user ${context.userstate.username}`, Logger.StatusTypes.Infomation)
                 return
@@ -122,7 +125,7 @@ export default class Bot {
 
         // If not one of the integrated commands check the scripts
         for (const script of FileHandler.scripts) {
-            if (script.name == command.name) {
+            if (script.name.toLowerCase() == command.name.toLowerCase()) {
                 ScriptHandler.ExecuteScript(script, context, command)
             }
         }

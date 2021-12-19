@@ -16,7 +16,7 @@ const integratedCommands : IAppCommand[] = [
     {
         name : 'points',
         action : (context : IContext) => {
-            DBConnection.getUser(context.userstate.username, (user) => {
+            DBConnection.getUser(context.userstate.username).then(user => {
                 // If the user hasen't been registred in the database yet, user will be undefined
                 // Just put the amount to 0 - The user will get registred when the points gets rewarded
                 const amount = (user) ? user.points : 0

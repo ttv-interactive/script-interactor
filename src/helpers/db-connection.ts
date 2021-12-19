@@ -69,16 +69,16 @@ export default class DBConnection {
         })
     }
 
-    static async getUser(username : string, callback : (user : IDatabaseUser) => void) {
-        this.connection.serialize(() => {
-           this.connection.get(`SELECT * FROM points where username="${username}"`, (err, row) => {
-               if (err){
-                   Logger.log(`There was an error retriving the data of ${username}`, Logger.StatusTypes.Failure);
-                    return;
-                }
-
-                callback(row);
+    static async getUser(username : string) {
+        return new Promise<IDatabaseUser>((resolve,reject) => {
+            this.connection.serialize(() => {
+               this.connection.get(`SELECT * FROM points where username="${username}"`, (err, row : IDatabaseUser) => {
+                   if (err){
+                       Logger.log(`There was an error retriving the data of ${username}`, Logger.StatusTypes.Failure);
+                    }
+                    resolve(row);
+                });
             });
-        });
+        })
     }
 }

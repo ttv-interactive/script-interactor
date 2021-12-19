@@ -32,37 +32,40 @@ export default class ScriptHandler{
 
             // Check if the script is moderator, subscriber or follower only
             // We will check for moderator and subscriber first it doesn't require an API call
-            if (script.moderatorOnly && !userstate.mod) {
-                Logger.log(`${userstate.username} tried to execute mod only script`, Logger.StatusTypes.Failure)
-                return
-            }
-
-            if (script.subscriberOnly && !userstate.subscriber){
-                Logger.log(`${userstate.username} tried to execute subscriber only script`, Logger.StatusTypes.Failure)
-                return
-            }
-            if (script.followerOnly && !await Api.isFollowing(userstate['user-id'])) {
-                Logger.log(`${userstate.username} tried to execute follower only script`, Logger.StatusTypes.Failure)
-                return
-            }
-
-            // If the point system is enabled check whether the user has enough points
-            if (settings.points.enabled && script.cost > 0) {
-                let enoughPoints = false
-                await DBConnection.getUser(userstate.username, (user) => {
-                    // If there user is present in the database
+            // Exclude the streamer from being checked
+            if (context.userstate.username !== settings.client.channel) {
+                if (script.moderatorOnly && !userstate.mod) {
+                    Logger.log(`${userstate.username} tried to execute mod only script`, Logger.StatusTypes.Failure)
+                    return
+                }
+    
+                if (script.subscriberOnly && !userstate.subscriber){
+                    Logger.log(`${userstate.username} tried to execute subscriber only script`, Logger.StatusTypes.Failure)
+                    return
+                }
+                // If the streamer is executing the script, we don't want to check follow status
+                if (context.userstate.username !== settings.client.channel) {
+                    if (script.followerOnly && !await Api.isFollowing(userstate['user-id'])) {
+                        Logger.log(`${userstate.username} tried to execute follower only script`, Logger.StatusTypes.Failure)
+                        return
+                    }
+                }
+                // If the point system is enabled check whether the user has enough points
+                // Skip the points system if the command is from the streamer
+                if (settings.points.enabled && script.cost > 0) {
+                    const user = await DBConnection.getUser(userstate.username)
                     if (user) {
                         if (user.points >= script.cost) {
+                            console.log(user.points)
+                            console.log(script.cost)
                             DBConnection.editPoints(userstate.username, script.cost, DBConnection.editTypes.Remove)
-                            enoughPoints = true
                         } else {
-                            context.client.say(context.channel, `@${userstate.username}, sorry you don't have enough points`)
+                            context.client.say(context.channel, `@${userstate.username}, sorry you don't have enough points. Points needed: ${script.cost}`)
+                            return
                         }
                     }
-                })
-                if (!enoughPoints) return
+                }
             }
-
 
             // Get the time of the execution -- this is used when we have to check on the cooldown of the script
             const time          = new Date().getTime()
@@ -114,12 +117,17 @@ export default class ScriptHandler{
                 } else {
                     shell = `"${executionMethod.shell}" ${scriptPath}`
                 }
-
                 // Add the args if any
-                if (command.args.length > 0) {
-                    shell += ' ' + command.args.join(' ')
+                if(script.args) {
+                    if (command.args.length > 0) {
+                        // Add the arguments to the shell
+                        shell += ' ' + command.args.join(' ')
+                    } else {
+                        // Return if the user didn't provide any arguments
+                        context.client.say(context.channel, script.argsError)
+                        return
+                    }
                 }
-
                 // Write to the chat
                 context.client.say(context.channel, `Executing script ${script.name}`)
                 // Add the script to currentRunningScripts and add it to the obs.txt file
@@ -193,7 +201,8 @@ export default class ScriptHandler{
                     file:           file,
                     cost:           0,
                     args:           false,
-                    cooldown:       30,
+                    argsError:      "This is the message that will be sent to the viewer - if arguments are enabled and the viewer didn't use them",
+                    cooldown:       0,
                     followerOnly:   true,
                     subscriberOnly: false,
                     moderatorOnly:  false
