@@ -27,7 +27,8 @@ These scripts can be configured to your liking with cooldown timer, points cost,
 ## Requirements
 * [Node](https://nodejs.org/en/) Will be used to run the program and install the necessary modules.  
 Note: if you plan using the executable this will not be needed.
-* [Python](https://www.python.org/downloads/) Will be used to execute Python scripts.
+* [Python](https://www.python.org/downloads/) Will be used to execute Python scripts.  
+Note: Remember to add Python to the system path, during the instillation.
 * [AutoHotkey](https://www.autohotkey.com/) Will be used to execute AutoHotkey scripts.
 
 
@@ -64,7 +65,7 @@ Fill in your bot's credentials.
   **DO NOT SHARE THIS TOKEN WITH ANYONE**
 
 Remember that each time you change the configuration or add new scripts, restart the application.
-### **Administrative Privileges**
+### Administrative Privileges
 The appliation requires to be run as administrator.  
 This is because a lot of the scripts will not be working as intended otherwise.
 * Enable administrator privileges for the exectuable  
