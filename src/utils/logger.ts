@@ -1,4 +1,5 @@
 enum StatusTypes {
+    None,
     Infomation,
     Success,
     Failure,
@@ -17,10 +18,11 @@ export default class Logger {
         // 3 : Failure
         // 4 : Data
         const statusFormats = {
-            0: "\x1b[43m \x1b[0m",
-            1: "\x1b[42m \x1b[0m",
-            2: "\x1b[41m \x1b[0m",
-            3: "\x1b[45m \x1b[0m"
+            0: '',
+            1: '\x1b[43m \x1b[0m',
+            2: '\x1b[42m \x1b[0m',
+            3: '\x1b[41m \x1b[0m',
+            4: '\x1b[45m \x1b[0m'
         }
         const date = new Date().toTimeString().split(' ')[0]
         // \x1b[0m is used to reset the color

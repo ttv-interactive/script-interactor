@@ -1,5 +1,5 @@
 
-<img src="https://raw.githubusercontent.com/ttv-interactive/docs/main/script-interactor/images/header.png">
+<img src="https://github.com/ttv-interactive/docs/blob/main/script-interactor/images/header.png?raw=true">
 <p align="center">
     <b>Script Interactor</b>
     <br>
@@ -15,9 +15,10 @@
 </p>
 
 # Script Interactor
-Script Interactor is a twitch chatbot built in Node JS.  
+Script Interactor is a Twitch chatbot built in Node JS.  
 It encourages your viewers to interact with your Twitch stream by letting them execute scripts, where you as the broadcaster are the target.  
-You could for example configure the application to run a script whenever a viewer types !reverse - which could result in your keyboard input turning reversed or you could configure a script to spawn enemies around you. The possibilies are up to you.
+You could for example configure the application to run a script whenever a viewer types !reverse - which could result in your keyboard input turning reversed or you could configure a script to spawn enemies around you. The possibilies are up to you.  
+Currently the applicaton can only be run on Windows machines.
 
 * How does it work?  
 You configure scripts to be run by chat commands. By adding a script to the ``./scripts`` folder and configuring it in the ``./config/scripts.json``, you allow your viewers to run scripts on your system by typing commands in the chat.  
@@ -64,12 +65,14 @@ Fill in your bot's credentials.
 
 Remember that each time you change the configuration or add new scripts, restart the application.
 ### **Administrative Privileges**
-It is **important** that you run the application with administrative privileges, otherwise a lot of the scripts won't be running properly.
-* Enabling administrative privileges in the terminal.  
-Before running the application `with ``npm start``, make sure that the terminal you have opened has been run as administrator.  
-Search for the command prompt and right click to run as administrator.
-* Enabling administrative privileges of the executable.  
-Right click on the executable and click run as administrator.
+The appliation requires to be run as administrator.  
+This is because a lot of the scripts will not be working as intended otherwise.
+* Enable administrator privileges for the exectuable  
+Right click on the executable, go to the compatibility page and enable `Run this program as an administrator` under the settings.  
+![run-as-administrator.png](https://github.com/ttv-interactive/docs/blob/main/script-interactor/images/run-as-administrator-exe.png?raw=true)
+* Enable administrator privileges for the terminal  
+If you're running the applicaton through the terminal. The terminal has to also be run with elevated privileges.  
+When opening the terminal make sure you right click and `Run as administrator`  
 
 For further documentation check these links.
 ## Documentation

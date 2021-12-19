@@ -58,7 +58,7 @@ export default class FileHandler {
                 executions :  [
                     {
                         ext: '.ahk',
-                        shell: 'C:\\Program Files\\AutoHotkey\\autohotkey.exe',
+                        shell: 'C:/Program Files/AutoHotkey/autohotkey.exe',
                     },
                     {
                         ext: '.py',
@@ -85,14 +85,9 @@ export default class FileHandler {
         if (!this.settings) {
             return false
         } else {
-            if (this.settings.client.username == '' ||
-                this.settings.client.oauth == '' ||
-                this.settings.client.channel == '') {
-                    console.log()
-                    Logger.log(`Configure ${FileHandler.directories.config} with your twitch credentials`, Logger.StatusTypes.Failure);
-                    Logger.log('username : "<Your twitch bot username>"', Logger.StatusTypes.Infomation);
-                    Logger.log('password : "<Your OAuth bot token>"', Logger.StatusTypes.Infomation);
-                    Logger.log('channels : [ "<Your twitch username>" ]', Logger.StatusTypes.Infomation);
+            if (this.settings.client.username   == '' ||
+                this.settings.client.oauth      == '' ||
+                this.settings.client.channel    == '') {
                     return false
             }
         }
@@ -107,7 +102,7 @@ export default class FileHandler {
             try {
                 const json = JSON.stringify(data, null, 4)
                 fs.writeFileSync(path, json);
-                Logger.log(`${path} - wrote ${data}`, 1)
+                Logger.log(`${path} - wrote data`, 1)
                 resolve(json)
     
             } catch(error) {
