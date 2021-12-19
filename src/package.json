@@ -13,7 +13,7 @@
   },
   "scripts": {
     "start": "tsc --build --clean && tsc -p . && node ./dist/index.js",
-    "pkg": "tsc -p . && pkg dist/index.js --t node16-win -o build/script-interactor.exe"
+    "pkg": "tsc -p . && pkg dist/index.js --t node16-win -o pkg/script-interactor/script-interactor.exe"
   },
   "dependencies": {
     "axios": "^0.24.0",
