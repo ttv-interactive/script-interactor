@@ -14,7 +14,7 @@
     <a href="#License">License</a>
 </p>
 
-# Script Interactor
+# About
 Script Interactor is a twitch chatbot built in Node JS.  
 It encourages your viewers to interact with your Twitch stream by letting them execute scripts, where you as the broadcaster are the target.  
 You could for example configure the application to run a script whenever a viewer types !reverse - which could result in your keyboard input turning reversed or you could configure a script to spawn enemies around you. The possibilies are up to you.
