@@ -35,11 +35,13 @@ export default class ScriptHandler{
             // Exclude the streamer from being checked
             if (context.userstate.username !== settings.client.channel) {
                 if (script.moderatorOnly && !userstate.mod) {
+                    context.client.say(context.channel, `@${userstate.username}, Sorry! this is a moderator only script`)
                     Logger.log(`${userstate.username} tried to execute mod only script`, Logger.StatusTypes.Failure)
                     return
                 }
     
                 if (script.subscriberOnly && !userstate.subscriber){
+                    context.client.say(context.channel, `@${userstate.username}, Sorry! this is a subscriber only script`)
                     Logger.log(`${userstate.username} tried to execute subscriber only script`, Logger.StatusTypes.Failure)
                     return
                 }
@@ -54,6 +56,7 @@ export default class ScriptHandler{
                     }
 
                     if (script.followerOnly && isFollowing == false) {
+                        context.client.say(context.channel, `@${userstate.username}, Sorry! this is a follower only script`)
                         Logger.log(`${userstate.username} tried to execute follower only script`, Logger.StatusTypes.Failure)
                         return
                     }
@@ -64,8 +67,6 @@ export default class ScriptHandler{
                     const user = await DBConnection.getUser(userstate.username)
                     if (user) {
                         if (user.points >= script.cost) {
-                            console.log(user.points)
-                            console.log(script.cost)
                             DBConnection.editPoints(userstate.username, script.cost, DBConnection.editTypes.Remove)
                         } else {
                             context.client.say(context.channel, `@${userstate.username}, sorry you don't have enough points. Points needed: ${script.cost}`)
