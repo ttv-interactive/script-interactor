@@ -14,15 +14,15 @@ export default class ApiHandler {
         }
 
         const handleError = (error : AxiosError) => {
-            const status = error.response.status
 
-            // If status is 401, it means the token isn't valid
-            // Dont print the API ERROR since validateToken() will handle it
-            if (status !== 401) {
-                Logger.log(`API ERROR: ${error.config.url} ${error}\n`, Logger.StatusTypes.Failure)
-                console.log(error.response.config)
-                console.log(error.response.data)
+            if (error.response) {
+                // If status is 401, it means the token isn't valid
+                // Dont print the API ERROR since validateToken() will handle it
+                if (error.response.status !== 401) {
+                    Logger.log(`API ERROR: ${error.config.url} ${error}\n`, Logger.StatusTypes.Failure)
+                }
             }
+
             return Promise.reject(error)
         }
 
@@ -36,7 +36,6 @@ export default class ApiHandler {
 
     // Validate the Bearer token for the Twitch API
     private static async validateToken() : Promise<void>{
-        
         await this.request.get('https://id.twitch.tv/oauth2/validate')
         .then( 
             () => {
@@ -57,7 +56,6 @@ export default class ApiHandler {
                 ).catch(
                     ( error : AxiosError ) => {
                         Logger.log(`API bearer token did not create. ${error}`, Logger.StatusTypes.Failure)
-                        Promise.reject(error)
                     }
                 )
             }
@@ -75,7 +73,9 @@ export default class ApiHandler {
                 this.request.get(url, config).then(
                     response => resolve(response)
     
-                ).catch( (error : AxiosError) => {})
+                ).catch( (error : AxiosError) => {
+                    reject(error)
+                })
     
             }).catch( error => {
                 Logger.log(`API ERROR: GET request with invalid bearer token\n${error}`, Logger.StatusTypes.Failure)
@@ -100,6 +100,8 @@ export default class ApiHandler {
                     isFollowing = true
                 }
             }
+        }).catch(error => {
+            isFollowing = null
         })
         return isFollowing
     }

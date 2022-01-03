@@ -45,7 +45,15 @@ export default class ScriptHandler{
                 }
                 // If the streamer is executing the script, we don't want to check follow status
                 if (context.userstate.username !== settings.client.channel) {
-                    if (script.followerOnly && !await Api.isFollowing(userstate['user-id'])) {
+
+                    // isFollowing will return null if the API couldn't be contacted
+                    const isFollowing = await Api.isFollowing(userstate['user-id']);
+
+                    if (isFollowing == null) {
+                        Logger.log(`No connection to the script-interactor API could be made. Follower status will be ignored`, Logger.StatusTypes.Failure)
+                    }
+
+                    if (script.followerOnly && isFollowing == false) {
                         Logger.log(`${userstate.username} tried to execute follower only script`, Logger.StatusTypes.Failure)
                         return
                     }
