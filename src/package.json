@@ -1,6 +1,6 @@
 {
   "name": "script-interactor",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "author": "viktorholk",
   "description": "Twitch chatbot for executing scripts",
   "license": "MIT",

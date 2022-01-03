@@ -13,7 +13,7 @@ console.log(`  ____            _       _
   | || | | | ||  __/ | | (_| | (__| || (_) | |   
  |___|_| |_|\\\__\\\___|_|  \\\__,_|\\\___|\\\__\\\___/|_|  
 
- Version 1.0.0              by viktorholk
+ Version 1.0.1              by viktorholk
  Discord for issues & help  https://discord.com/invite/VEDrsqCn2D`)
 
 // Function for blocking the application and waiting for input
