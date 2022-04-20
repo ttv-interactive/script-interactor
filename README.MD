@@ -23,26 +23,24 @@ Note: if you plan using the executable this will not be needed.
 Note: Remember to add Python to the system path, during the instillation.
 * [AutoHotkey](https://www.autohotkey.com/) Will be used to execute AutoHotkey scripts.
 
-
 ## Installation
 * Cloning the repository  
 
 This require [Node](https://nodejs.org/en/) and [Git](https://git-scm.com/downloads) and installed.  
 `git clone https://github.com/viktorholk/script-interactor` in your terminal, with [Git](https://git-scm.com/downloads) installed.  
-You can also download the repository as a .zip file [here](https://github.com/ttv-interactive/script-interactor/archive/refs/heads/main.zip)  
+You can also download the repository as a .zip file [here](https://github.com/viktorholk/script-interactor/archive/refs/heads/main.zip)  
 
 Goto `./src` and type `npm install` in your terminal to install the necessary modules.  
 Type `npm start` to run the application.  
 
-You can skip this by downloading the latest [release](https://github.com/ttv-interactive/script-interactor/releases).
+You can skip this by downloading the latest [release](https://github.com/viktorholk/script-interactor/releases).
 
 For further documentation check the [wiki](https://github.com/viktorholk/script-interactor/wiki).
-## Documentation
 * [Setup](https://github.com/viktorholk/script-interactor/wiki/Setup)
 * [Scripts](https://github.com/viktorholk/script-interactor/wiki/Scripts)
 * [Point system](https://github.com/viktorholk/script-interactor/wiki/Points-System)
 * [OBS](https://github.com/viktorholk/script-interactor/wiki/Setup#obs)
 ## Issues
-Please report issues using [GitHub's issues tab](https://github.com/ttv-interactive/script-interactor/issues), or in the [Discord](https://discord.gg/VEDrsqCn2D).
+Please report issues using [GitHub's issues tab](https://github.com/viktorholk/script-interactor/issues), or in the [Discord](https://discord.gg/VEDrsqCn2D).
 ## License
 Script Interactor is under the [MIT LICENSE](LICENSE).
