@@ -15,7 +15,7 @@ Currently the applicaton can only be run on Windows machines.
 * How does it work?  
 You configure scripts to be run by chat commands. By adding a script to the ``./scripts`` folder and configuring it in the ``./config/scripts.json``, you allow your viewers to run scripts on your system by typing commands in the chat.  
 These scripts can be configured to your liking with cooldown timer, points cost, permissions etc. in the ``config/scripts.json``.  
-  
+
 ## Requirements
 * [Node](https://nodejs.org/en/) Will be used to run the program and install the necessary modules.  
 Note: if you plan using the executable this will not be needed.
@@ -25,7 +25,6 @@ Note: Remember to add Python to the system path, during the instillation.
 
 ## Installation
 * Cloning the repository  
-
 This require [Node](https://nodejs.org/en/) and [Git](https://git-scm.com/downloads) and installed.  
 `git clone https://github.com/viktorholk/script-interactor` in your terminal, with [Git](https://git-scm.com/downloads) installed.  
 You can also download the repository as a .zip file [here](https://github.com/viktorholk/script-interactor/archive/refs/heads/main.zip)  
